@@ -3,18 +3,21 @@ package com.jincrates.cogito.service;
 import com.jincrates.cogito.dto.BoardDTO;
 import com.jincrates.cogito.entity.Board;
 import com.jincrates.cogito.entity.Member;
+import java.util.List;
 
 public interface BoardService {
 
     Long register(BoardDTO dto);
 
-    //PageResultDTO<BoardDTO, Object[]> getList(PageRequestDTO pageRequestDTO);  //목록 처리
-
     BoardDTO get(Long bno);
 
-    void removeWIthReplies(Long bno);
+    void modify(BoardDTO dto);
 
-    void modify(BoardDTO boardDTO);
+    void remove(Long bno);
+
+    List<BoardDTO> getAllWithWriter(String writerEmail);
+
+    void removeWithReplies(Long bno);
 
     default Board dtoToEntity(BoardDTO dto) {
 

@@ -1,6 +1,7 @@
 package com.jincrates.cogito.repository;
 
 import com.jincrates.cogito.entity.Board;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -17,9 +18,13 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
     EntityGraph는 이러한 점을 보완하고 연관 엔티티를 어떻게 로딩할 것인지에 대한 정보를 제공함으로서
     엔티티 로딩 속도를 높일 수 있는 장점이 있음
     */
-    //@EntityGraph(attributePaths = "writer", type = EntityGraph.EntityGraphType.LOAD)
-    @Query("SELECT b, w FROM Board b LEFT OUTER JOIN b.writer w WHERE b.bno = :bno")
-    Optional<Board> getBoardWithWriter(@Param("bno") Long bno);
+    @EntityGraph(attributePaths = "writer", type = EntityGraph.EntityGraphType.LOAD)
+    @Query("SELECT b FROM Board b WHERE b.bno = :bno")
+    Optional<Board> getWithWriter(@Param("bno") Long bno);
+
+    @EntityGraph(attributePaths = "writer", type = EntityGraph.EntityGraphType.LOAD)
+    @Query("SELECT b FROM Board b WHERE b.writer.email = :email")
+    List<Board> getList(@Param("email") String email);
 
     @Query("SELECT b, r FROM Board b LEFT OUTER JOIN Reply r ON r.board = b WHERE b.bno = :bno")
     List<Object[]> getBoardWithReply(@Param("bno") Long bno);

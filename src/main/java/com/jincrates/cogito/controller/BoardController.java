@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 @RestController
 @Log4j2
@@ -34,5 +35,23 @@ public class BoardController {
         log.info(bno);
 
         return new ResponseEntity<>(service.get(bno), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/all", produces = MediaType.APPLICATION_PROBLEM_JSON_VALUE)
+    public ResponseEntity<List<BoardDTO>> getList(String email) {
+        log.info("getList................................................................");
+        log.info(email);
+
+        return new ResponseEntity<>(service.getAllWithWriter(email), HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/{bno}", produces = MediaType.TEXT_PLAIN_VALUE)
+    public ResponseEntity<String> modify(@RequestBody BoardDTO boardDTO) {
+        log.info("modify..................................................................");
+        log.info(boardDTO);
+
+        service.modify(boardDTO);
+
+        return new ResponseEntity<>("modified", HttpStatus.OK);
     }
 }

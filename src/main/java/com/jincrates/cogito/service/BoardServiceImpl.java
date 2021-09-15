@@ -9,7 +9,9 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -18,13 +20,11 @@ public class BoardServiceImpl implements BoardService {
 
     private final BoardRepository repository;  //자동 주 final
 
+    @Transactional
     @Override
     public Long register(BoardDTO dto) {
 
         Board board = dtoToEntity(dto);
-
-        log.info("BoardServiceImpl : register.............................................");
-        log.info(board);
 
         repository.save(board);
 
@@ -35,7 +35,6 @@ public class BoardServiceImpl implements BoardService {
     public BoardDTO get(Long bno) {
 
         Optional<Board> result = repository.getBoardByBno(bno);
-        log.info("BoardServiceImpl : get.............................................");
 
         if(result.isPresent()) {
             return entityToDTO(result.get());
@@ -44,9 +43,31 @@ public class BoardServiceImpl implements BoardService {
         return null;
     }
 
-    @Transactional
     @Override
-    public void removeWIthReplies(Long bno) { //삭제 기능 구현, 트랜잭션 추가
+    public void modify(BoardDTO boardDTO) {
+
+        Long bno = boardDTO.getBno();
+
+        Optional<Board> result = repository.findById(bno);
+
+        if(result.isPresent()) {
+            Board board = result.get();
+
+            board.changeTitle(boardDTO.getTitle());
+            board.changeContent(board.getContent());
+
+            repository.save(board);
+        }
+    }
+
+    @Override
+    public void remove(Long bno) {
+
+        repository.deleteById(bno);
+    }
+
+    @Override
+    public void removeWithReplies(Long bno) { //삭제 기능 구현, 트랜잭션 추가
 
         //댓긃부터 삭제
         //replyRepository.deleteByBno(bno);
@@ -54,15 +75,12 @@ public class BoardServiceImpl implements BoardService {
         repository.deleteById(bno);
     }
 
-    @Transactional
+
     @Override
-    public void modify(BoardDTO boardDTO) {
+    public List<BoardDTO> getAllWithWriter(String writerEmail) {
 
-        Board board = repository.getById(boardDTO.getBno());
+        List<Board> boardList = repository.getList(writerEmail);
 
-        board.changeTitle(boardDTO.getTitle());
-        board.changeContent(board.getContent());
-
-        repository.save(board);
+        return boardList.stream().map(board -> entityToDTO(board)).collect(Collectors.toList());
     }
 }
