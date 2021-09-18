@@ -1,21 +1,18 @@
 package com.jincrates.cogito.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.ToString;
+import io.swagger.annotations.ApiModel;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Builder
-@AllArgsConstructor
-@Getter
-@ToString(exclude = "board")
+@AllArgsConstructor @NoArgsConstructor
+@Getter @ToString(exclude = "board")
+@ApiModel(value = "댓글 Entity")
 public class Reply extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long rno;
 
     private String text;
