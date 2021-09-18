@@ -8,10 +8,8 @@ import javax.persistence.*;
 
 @Entity
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@ToString(exclude = "writer")
+@AllArgsConstructor @NoArgsConstructor
+@Getter @ToString(exclude = "writer")
 @ApiModel(value = "게시글 Entity")
 public class Board extends BaseEntity{
 
