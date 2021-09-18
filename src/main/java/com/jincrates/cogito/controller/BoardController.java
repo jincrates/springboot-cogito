@@ -57,6 +57,16 @@ public class BoardController {
 
         return new ResponseEntity<>("modified", HttpStatus.OK);
     }
+
+    @DeleteMapping(value = "/{bno}", produces =  MediaType.TEXT_PLAIN_VALUE)
+    @ApiOperation(value = "게시글 삭제")
+    public ResponseEntity<String> remove(@PathVariable("bno") Long bno) {
+        log.info("remove bno: {}", bno);
+
+        service.remove(bno);
+
+        return new ResponseEntity<>("remove", HttpStatus.OK);
+    }
 }
 
 
