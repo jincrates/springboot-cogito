@@ -1,5 +1,7 @@
 package com.jincrates.cogito.entity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
 import javax.persistence.*;
@@ -10,13 +12,17 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Getter
 @ToString(exclude = "writer")
+@ApiModel(value = "게시글 Entity")
 public class Board extends BaseEntity{
 
+    @ApiModelProperty(value = "게시글 번호", required = true)
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long bno;
 
+    @ApiModelProperty(value = "게시글 제목", required = true)
     private String title;
 
+    @ApiModelProperty(value = "게시글 내용", required = true)
     private String content;
 
     /*

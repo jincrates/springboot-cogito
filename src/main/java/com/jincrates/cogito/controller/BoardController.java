@@ -1,11 +1,9 @@
 package com.jincrates.cogito.controller;
 
 import com.jincrates.cogito.dto.BoardDTO;
-import com.jincrates.cogito.entity.Board;
 import com.jincrates.cogito.service.BoardService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -25,7 +23,7 @@ public class BoardController {
     @ApiOperation(value = "게시글 등록", response = BoardDTO.class)
     public ResponseEntity<Long> register(@RequestBody BoardDTO boardDTO) {
 
-        log.info("register dto: {}", boardDTO);
+        log.info("Board register dto: {}", boardDTO);
 
         Long bno = service.register(boardDTO);
 
@@ -35,7 +33,7 @@ public class BoardController {
     @GetMapping(value = "/{bno}", produces = MediaType.APPLICATION_PROBLEM_JSON_VALUE)
     @ApiOperation(value = "게시글 조회")
     public ResponseEntity<BoardDTO> read(@PathVariable("bno") Long bno) {
-        log.info("read bno:{}", bno);
+        log.info("Board read bno: {}", bno);
 
         return new ResponseEntity<>(service.get(bno), HttpStatus.OK);
     }
@@ -43,7 +41,7 @@ public class BoardController {
     @GetMapping(value = "/all", produces = MediaType.APPLICATION_PROBLEM_JSON_VALUE)
     @ApiOperation(value = "게시글 리스트 조회")
     public ResponseEntity<List<BoardDTO>> getList(String email) {
-        log.info("getList : {}", email);
+        log.info("Board getList: {}", email);
 
         return new ResponseEntity<>(service.getAllWithWriter(email), HttpStatus.OK);
     }
@@ -51,7 +49,7 @@ public class BoardController {
     @PutMapping(value = "/{bno}", produces = MediaType.TEXT_PLAIN_VALUE)
     @ApiOperation(value = "게시글 수정", response = BoardDTO.class)
     public ResponseEntity<String> modify(@RequestBody BoardDTO boardDTO) {
-        log.info("modify dto: {}", boardDTO);
+        log.info("Board modify dto: {}", boardDTO);
 
         service.modify(boardDTO);
 
@@ -61,7 +59,7 @@ public class BoardController {
     @DeleteMapping(value = "/{bno}", produces =  MediaType.TEXT_PLAIN_VALUE)
     @ApiOperation(value = "게시글 삭제")
     public ResponseEntity<String> remove(@PathVariable("bno") Long bno) {
-        log.info("remove bno: {}", bno);
+        log.info("Board remove bno: {}", bno);
 
         service.remove(bno);
 
