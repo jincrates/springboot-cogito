@@ -26,7 +26,7 @@ public class SwaggerConfig {
     @Bean
     public Docket restAPI() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .groupName("swg-group")//빈설정을 여러개 해줄경우 구분하기 위한 구분자.
+                .groupName("swg-cogito")//빈설정을 여러개 해줄경우 구분하기 위한 구분자.
                 .apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.jincrates.cogito"))
