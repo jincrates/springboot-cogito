@@ -18,7 +18,7 @@ public class ReplyServiceImplTest {
     @Test
     public void testGetReplyList() {
 
-        Long bno = 100L;  // 데이터베이스에 존재하는 번호
+        Long bno = 2L;  // 데이터베이스에 존재하는 번호
 
         List<ReplyDTO> replyDTOList = service.getList(bno);
 
