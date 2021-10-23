@@ -3,6 +3,7 @@ package com.jincrates.cogito.service;
 import com.jincrates.cogito.dto.BoardDTO;
 import com.jincrates.cogito.entity.Board;
 import com.jincrates.cogito.entity.Member;
+
 import java.util.List;
 
 public interface BoardService {

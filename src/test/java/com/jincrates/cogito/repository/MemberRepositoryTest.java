@@ -7,8 +7,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.stream.IntStream;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @SpringBootTest
 public class MemberRepositoryTest {
 
@@ -21,7 +19,7 @@ public class MemberRepositoryTest {
         IntStream.rangeClosed(1, 100).forEach(i -> {
 
             Member member = Member.builder()
-                    .email("user" + i + "@cogito.com")
+                    .email("member" + i + "@cogito.com")
                     .password("1111")
                     .name("USER" + i)
                     .build();

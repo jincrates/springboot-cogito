@@ -1,18 +1,12 @@
 package com.jincrates.cogito.repository;
 
-import com.jincrates.cogito.dto.BoardDTO;
 import com.jincrates.cogito.entity.Board;
 import com.jincrates.cogito.entity.Member;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
-import java.util.Optional;
 import java.util.stream.IntStream;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 public class BoardRepositoryTest {
@@ -27,7 +21,7 @@ public class BoardRepositoryTest {
 
             //MemberRepository에 미리 생성되어 있어야함
             Member member = Member.builder()
-                    .email("user" + i + "@cogito.com")
+                    .email("member" + i + "@cogito.com")
                     //.password("1111")
                     //.name("사용자" + i)
                     .build();
