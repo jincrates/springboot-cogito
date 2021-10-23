@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController @Log4j2
 @RequiredArgsConstructor
-@RequestMapping("/reply/") @Api(tags = {"댓글 API"})
+@RequestMapping("/reply") @Api(tags = {"댓글 API"})
 public class ReplyController {
 
     private final ReplyService service;  //자동주입을 위해 final

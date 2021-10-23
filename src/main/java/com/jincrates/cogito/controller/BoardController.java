@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController @Log4j2
 @RequiredArgsConstructor
-@RequestMapping("/board/") @Api(tags = {"게시판 API"})
+@RequestMapping("/board") @Api(tags = {"게시판 API"})
 public class BoardController {
 
     private final BoardService service;  //final
