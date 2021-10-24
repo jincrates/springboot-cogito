@@ -9,4 +9,8 @@ public interface MemberService {
     List<Member> findAll();
 
     Member findByEmail(String email);
+
+    //void deleteByEmail(String email);
+
+    Member save(Member member);
 }

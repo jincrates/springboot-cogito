@@ -25,7 +25,7 @@ public class MemberServiceImpl implements MemberService {
 
         Optional<Member> member = repository.findByEmail(email, false);
 
-        if(!member.isPresent()) {
+        if(member.isEmpty()) {
             throw  new UserNotFoundException(String.format("Email[%s] not found", email));
         }
 
@@ -36,5 +36,22 @@ public class MemberServiceImpl implements MemberService {
         //return resource
 
         return member.get();
+    }
+
+    /*
+    public void deleteByEmail(String email) {
+
+        Optional<Member> member = repository.findByEmail(email, false);
+
+        if(member.isEmpty()) {
+            throw  new UserNotFoundException(String.format("Email[%s] not found", email));
+        }
+
+        repository.deleteByEmail(email);
+    }
+    */
+
+    public Member save(Member member) {
+        return repository.save(member);
     }
 }
