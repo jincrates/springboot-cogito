@@ -12,55 +12,45 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
-@RestController @Log4j2
+@RestController
+@Log4j2
 @RequiredArgsConstructor
-@RequestMapping("/board") @Api(tags = {"게시판 API"})
+@RequestMapping("/api/board") @Api(tags = {"게시판 API"})
 public class BoardController {
 
     private final BoardService service;  //final
 
-    @PostMapping(value = "")
+    @ApiOperation(value = "게시글 목록 조회")
+    @GetMapping(value = "/user/{email}", produces = MediaType.APPLICATION_PROBLEM_JSON_VALUE)
+    public ResponseEntity<List<BoardDTO>> getListByEmail(@PathVariable("email") String email) {
+        return new ResponseEntity<>(service.getAllWithWriter(email), HttpStatus.OK);
+    }
+
     @ApiOperation(value = "게시글 등록", response = BoardDTO.class)
+    @PostMapping(value = "")
     public ResponseEntity<Long> register(@RequestBody BoardDTO boardDTO) {
-
-        log.info("Board register dto: {}", boardDTO);
-
         Long bno = service.register(boardDTO);
 
         return new ResponseEntity<>(bno, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/{bno}", produces = MediaType.APPLICATION_PROBLEM_JSON_VALUE)
     @ApiOperation(value = "게시글 조회")
+    @GetMapping(value = "/{bno}", produces = MediaType.APPLICATION_PROBLEM_JSON_VALUE)
     public ResponseEntity<BoardDTO> read(@PathVariable("bno") Long bno) {
-        log.info("Board read bno: {}", bno);
-
         return new ResponseEntity<>(service.get(bno), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/all", produces = MediaType.APPLICATION_PROBLEM_JSON_VALUE)
-    @ApiOperation(value = "게시글 리스트 조회")
-    public ResponseEntity<List<BoardDTO>> getList(String email) {
-        log.info("Board getList: {}", email);
-
-        return new ResponseEntity<>(service.getAllWithWriter(email), HttpStatus.OK);
-    }
-
-    @PutMapping(value = "/{bno}", produces = MediaType.TEXT_PLAIN_VALUE)
     @ApiOperation(value = "게시글 수정", response = BoardDTO.class)
+    @PutMapping(value = "/{bno}", produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity<String> modify(@RequestBody BoardDTO boardDTO) {
-        log.info("Board modify dto: {}", boardDTO);
-
         service.modify(boardDTO);
 
         return new ResponseEntity<>("modified", HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/{bno}", produces =  MediaType.TEXT_PLAIN_VALUE)
     @ApiOperation(value = "게시글 삭제")
+    @DeleteMapping(value = "/{bno}", produces =  MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity<String> remove(@PathVariable("bno") Long bno) {
-        log.info("Board remove bno: {}", bno);
-
         service.remove(bno);
 
         return new ResponseEntity<>("remove", HttpStatus.OK);

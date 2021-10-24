@@ -1,5 +1,6 @@
 package com.jincrates.cogito.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
@@ -30,7 +31,8 @@ public class Board extends BaseEntity{
     보편적인 코딩 가이드: 지연 로딩을 기본으로 사용하고, 상황에 맞게 필요한 방법을 찾는다.
      */
     @ManyToOne(fetch = FetchType.LAZY)
-    private Member writer;  //연관관계 지정
+    @JsonIgnore
+    private User writer;  //연관관계 지정
 
     public void changeTitle(String title) {
         this.title = title;
