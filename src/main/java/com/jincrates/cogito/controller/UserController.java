@@ -1,14 +1,13 @@
 package com.jincrates.cogito.controller;
 
-import com.jincrates.cogito.dto.BoardDTO;
-import com.jincrates.cogito.dto.ReplyDTO;
 import com.jincrates.cogito.dto.UserDTO;
 import com.jincrates.cogito.entity.User;
 import com.jincrates.cogito.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -18,7 +17,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/user") @Api(tags = {"사용자 API"})
+@RequestMapping("api/users") @Api(tags = {"사용자 API"})
 public class UserController {
 
     @Autowired
@@ -26,7 +25,7 @@ public class UserController {
 
     @ApiOperation(value = "전체 사용자 조회")
     @GetMapping("")
-    public List<User> getListAllUsers() {
+    public List<User> findAll() {
         return service.findAll();
     }
 
