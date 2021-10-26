@@ -10,6 +10,8 @@ public interface BoardService {
 
     Long register(BoardDTO dto);
 
+    //PageResultDTO<BoardDTO, Object[]> getList(PageRequestDTO pageRequestDTO);
+
     BoardDTO get(Long bno);
 
     void modify(BoardDTO dto);

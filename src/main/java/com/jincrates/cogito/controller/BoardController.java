@@ -28,8 +28,8 @@ public class BoardController {
 
     @ApiOperation(value = "게시글 등록", response = BoardDTO.class)
     @PostMapping(value = "")
-    public ResponseEntity<Long> register(@RequestBody BoardDTO boardDTO) {
-        Long bno = service.register(boardDTO);
+    public ResponseEntity<Long> register(@RequestBody BoardDTO dto) {
+        Long bno = service.register(dto);
 
         return new ResponseEntity<>(bno, HttpStatus.OK);
     }
@@ -42,8 +42,8 @@ public class BoardController {
 
     @ApiOperation(value = "게시글 수정", response = BoardDTO.class)
     @PutMapping(value = "/{bno}", produces = MediaType.TEXT_PLAIN_VALUE)
-    public ResponseEntity<String> modify(@RequestBody BoardDTO boardDTO) {
-        service.modify(boardDTO);
+    public ResponseEntity<String> modify(@RequestBody BoardDTO dto) {
+        service.modify(dto);
 
         return new ResponseEntity<>("modified", HttpStatus.OK);
     }

@@ -2,14 +2,19 @@ package com.jincrates.cogito.service;
 
 import com.jincrates.cogito.dto.BoardDTO;
 import com.jincrates.cogito.entity.Board;
+import com.jincrates.cogito.entity.User;
 import com.jincrates.cogito.repository.BoardRepository;
+import com.jincrates.cogito.repository.ReplyRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
@@ -18,6 +23,7 @@ import java.util.stream.Collectors;
 public class BoardServiceImpl implements BoardService {
 
     private final BoardRepository repository;  //자동 주입 final
+    private final ReplyRepository replyRepository;
 
     @Transactional
     @Override

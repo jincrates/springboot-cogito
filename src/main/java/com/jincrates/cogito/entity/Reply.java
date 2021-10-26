@@ -8,11 +8,13 @@ import javax.persistence.*;
 @Entity
 @Builder
 @AllArgsConstructor @NoArgsConstructor
-@Getter @ToString(exclude = "board")
+@Getter
+@ToString(exclude = "board")
 @ApiModel(value = "댓글 Entity")
 public class Reply extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "rno")
     private Long rno;
 
     private String text;

@@ -30,11 +30,11 @@ public class UserServiceImpl implements UserService {
             throw  new UserNotFoundException(String.format("Email[%s] not found", email));
         }
 
-        //Heteos
-        //Resource<User> resource = new Resource<>(member.get());
-        //ControllerLinkBuilder linkTo = linkTo(methodOn(this.getClass()).findAll());
-        //resource.add(linkTo.withRel("all-users");
-        //return resource
+        //HATEOAS 설정
+        //EntityModel<User> model = new EntityModel<>(member.get());
+        //WebMvcLinkBuilder linkTo = linkTo(methodOn(this.getClass()).findAll());
+        //model.add(linkTo.withRel("all-users");
+        //return model
 
         return member.get();
     }
