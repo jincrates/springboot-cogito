@@ -36,7 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.formLogin();  //권한 인증에 문제시 로그인 화면 이동
         http.csrf().disable();  //csrf 토큰 비활성화
-        http.logout();
+        //http.logout();
         http.oauth2Login(); //.successHandler(successHandler());
         //http.rememberMe().tokenValiditySeconds(60*60*24*7).userDetailsService(userDetailsService); //7dayss
     }
