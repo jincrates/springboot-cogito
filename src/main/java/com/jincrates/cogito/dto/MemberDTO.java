@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @ApiModel(value = "사용자 데이터 전송 객체")
-public class UserDTO {
+public class MemberDTO {
 
     private String email;
 

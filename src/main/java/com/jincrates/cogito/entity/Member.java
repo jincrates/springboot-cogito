@@ -17,7 +17,7 @@ import java.util.Set;
 @Getter
 @ToString
 @ApiModel(value = "사용자 Entity")
-public class User extends BaseEntity {
+public class Member extends BaseEntity {
 
     @Id
     private String email;
@@ -30,9 +30,9 @@ public class User extends BaseEntity {
 
     @ElementCollection(fetch = FetchType.LAZY)
     @Builder.Default
-    private Set<UserRole> roleSet = new HashSet<>();
+    private Set<MemberRole> roleSet = new HashSet<>();
 
-    public void addUserRole(UserRole userRole) {
-        roleSet.add(userRole);
+    public void addUserRole(MemberRole memberRole) {
+        roleSet.add(memberRole);
     }
 }

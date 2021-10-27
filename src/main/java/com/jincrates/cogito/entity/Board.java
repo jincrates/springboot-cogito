@@ -34,7 +34,7 @@ public class Board extends BaseEntity{
     @ApiModelProperty(value = "작성자", required = true)
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
-    private User writer;  //연관관계 지정
+    private Member writer;  //연관관계 지정
 
     public void changeTitle(String title) {
         this.title = title;

@@ -2,7 +2,7 @@ package com.jincrates.cogito.service;
 
 import com.jincrates.cogito.dto.BoardDTO;
 import com.jincrates.cogito.entity.Board;
-import com.jincrates.cogito.entity.User;
+import com.jincrates.cogito.entity.Member;
 
 import java.util.List;
 
@@ -24,20 +24,20 @@ public interface BoardService {
 
     default Board dtoToEntity(BoardDTO dto) {
 
-        User user = User.builder().email(dto.getWriterEmail()).build();
+        Member member = Member.builder().email(dto.getWriterEmail()).build();
 
         Board board = Board.builder()
                 .bno(dto.getBno())
                 .title(dto.getTitle())
                 .content(dto.getContent())
-                .writer(user)
+                .writer(member)
                 .build();
 
         return board;
     }
 
     //BoardService 인터페이스에 추가하는 entityToDTO()
-    default BoardDTO entityToDTO(Board board, User user, Long replyCount) {
+    default BoardDTO entityToDTO(Board board, Member member, Long replyCount) {
 
         BoardDTO boardDTO = BoardDTO.builder()
                 .bno(board.getBno())
@@ -45,8 +45,8 @@ public interface BoardService {
                 .content(board.getContent())
                 .regDate(board.getRegDate())
                 .modDate(board.getModDate())
-                .writerEmail(user.getEmail())
-                .writerName(user.getName())
+                .writerEmail(member.getEmail())
+                .writerName(member.getName())
                 .replyCount(replyCount.intValue())  //long으로 나오므로 int로 형변환
                 .build();
 

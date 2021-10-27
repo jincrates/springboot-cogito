@@ -1,5 +1,5 @@
 package com.jincrates.cogito.entity;
 
-public enum UserRole {
+public enum MemberRole {
     USER, MANAGER, ADMIN
 }

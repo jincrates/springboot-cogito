@@ -1,20 +1,21 @@
 package com.jincrates.cogito.security;
 
-import com.jincrates.cogito.entity.User;
-import com.jincrates.cogito.entity.UserRole;
-import com.jincrates.cogito.repository.UserRepository;
+import com.jincrates.cogito.entity.Member;
+import com.jincrates.cogito.entity.MemberRole;
+import com.jincrates.cogito.repository.MemberRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.Optional;
 import java.util.stream.IntStream;
 
 @SpringBootTest
-public class UserTests {
+public class MemberTests {
 
     @Autowired
-    private UserRepository repository;
+    private MemberRepository repository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -25,24 +26,34 @@ public class UserTests {
         //81 - 90까지는 USER, MANAGER
         //91 - 100까지는 USER, MANAGER, ADMIN
         IntStream.rangeClosed(1, 100).forEach(i -> {
-            User user = User.builder()
-                    .email("user" + i + "@cogito.com")
+            Member member = Member.builder()
+                    .email("member" + i + "@cogito.com")
                     .name("사용자" + i)
                     .fromSocial(false)
                     .password(passwordEncoder.encode("1111"))
                     .build();
             //default role
-            user.addUserRole(UserRole.USER);
+            member.addUserRole(MemberRole.USER);
 
             if( i > 80) {
-                user.addUserRole(UserRole.MANAGER);
+                member.addUserRole(MemberRole.MANAGER);
             }
 
             if (i > 90) {
-                user.addUserRole(UserRole.ADMIN);
+                member.addUserRole(MemberRole.ADMIN);
             }
 
-            repository.save(user);
+            repository.save(member);
         });
+    }
+
+    @Test
+    public void testRead() {
+
+        Optional<Member> result = repository.findByEmail("member94@cogito.com", false);
+
+        Member member = result.get();
+
+        System.out.println(member);
     }
 }

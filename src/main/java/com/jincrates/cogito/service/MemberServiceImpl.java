@@ -1,8 +1,7 @@
 package com.jincrates.cogito.service;
 
-import com.jincrates.cogito.dto.UserDTO;
 import com.jincrates.cogito.exception.UserNotFoundException;
-import com.jincrates.cogito.repository.UserRepository;
+import com.jincrates.cogito.repository.MemberRepository;
 import com.jincrates.cogito.entity.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -14,24 +13,24 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 @Log4j2
-public class UserServiceImpl implements UserService {
+public class MemberServiceImpl implements MemberService {
 
-    private final UserRepository repository;
+    private final MemberRepository repository;
 
-    public List<User> findAll() {
+    public List<Member> findAll() {
         return repository.findAll();
     }
 
-    public User findByEmail(String email) {
+    public Member findByEmail(String email) {
 
-        Optional<User> member = repository.findByEmail(email, false);
+        Optional<Member> member = repository.findByEmail(email, false);
 
         if(member.isEmpty()) {
             throw  new UserNotFoundException(String.format("Email[%s] not found", email));
         }
 
         //HATEOAS 설정
-        //EntityModel<User> model = new EntityModel<>(member.get());
+        //EntityModel<Member> model = new EntityModel<>(member.get());
         //WebMvcLinkBuilder linkTo = linkTo(methodOn(this.getClass()).findAll());
         //model.add(linkTo.withRel("all-users");
         //return model
@@ -42,7 +41,7 @@ public class UserServiceImpl implements UserService {
     /*
     public void deleteByEmail(String email) {
 
-        Optional<User> member = repository.findByEmail(email, false);
+        Optional<Member> member = repository.findByEmail(email, false);
 
         if(member.isEmpty()) {
             throw  new UserNotFoundException(String.format("Email[%s] not found", email));
@@ -52,7 +51,7 @@ public class UserServiceImpl implements UserService {
     }
     */
 
-    public User save(User user) {
-        return repository.save(user);
+    public Member save(Member member) {
+        return repository.save(member);
     }
 }
